@@ -34,8 +34,6 @@ GUICtrlCreateGroup("Single File Extract", 8, 216, 505, 113)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
-;~ Dim $CXLExtractor_AccelTable[1][2] = [["{F1}", $menuHelp]]
-;~ GUISetAccelerators($CXLExtractor_AccelTable)
 #EndRegion ### END Koda GUI section ###
 
 While 1
@@ -63,3 +61,37 @@ While 1
 
 EndSwitch
 WEnd
+
+
+
+
+
+Func _About()
+	#Region ### START Koda GUI section ### Form=C:\Users\Jeremy\Desktop\citiesxlextractor\about.kxf
+	$aboutform = GUICreate("About", 328, 231, 302, 218)
+	GUISetIcon("D:\006.ico")
+	GUICtrlCreateGroup("", 8, 8, 305, 169)
+	GUICtrlCreateLabel("Product Name", 80, 24, 72, 17, $WS_GROUP)
+	GUICtrlCreateLabel("Version", 80, 48, 39, 17, $WS_GROUP)
+	GUICtrlCreateLabel("Comments", 24, 104, 53, 17, $WS_GROUP)
+	GUICtrlCreateLabel("Copyright", 24, 72, 48, 17, $WS_GROUP)
+	GUICtrlCreateLabel("%AppName%", 160, 24, 67, 17)
+	GUICtrlCreateLabel("%AppVersion%", 128, 48, 74, 17)
+	GUICtrlCreateLabel("GNU General Public License v3", 72, 72, 155, 17)
+	GUICtrlCreateEdit("", 80, 104, 217, 65, BitOR($ES_AUTOVSCROLL,$ES_AUTOHSCROLL,$ES_READONLY,$ES_WANTRETURN))
+	GUICtrlSetData(-1, StringFormat("Special Thanks to QuickBMS from\r\nhttp://xentax.com for making this possible"))
+	GUICtrlCreateGroup("", -99, -99, 1, 1)
+	$btnOk = GUICtrlCreateButton("&OK", 112, 192, 75, 25)
+	GUISetState(@SW_SHOW)
+	#EndRegion ### END Koda GUI section ###
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				GUIDelete($aboutform)
+			Case $btnOk
+				GUIDelete($aboutform)
+		EndSwitch
+	WEnd
+EndFunc
