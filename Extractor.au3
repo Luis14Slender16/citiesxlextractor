@@ -1,5 +1,5 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.2
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.3
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -88,10 +88,10 @@ While 1
 		GUICtrlSetData($inputSinglePakOuput, $SinglePakOuput)
 
 	Case $btnExtractAll
-		RunWait(@ComSpec & " /c " & @ScriptDir&'\quickbms.exe "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputPakFolder)&'" "'&GUICtrlRead($inputOutputFolder)&'"')
+		RunWait(@ComSpec & " /c " & '"'&@ScriptDir&'\quickbms.exe" "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputPakFolder)&'" "'&GUICtrlRead($inputOutputFolder)&'"')
 
 	Case $btnExtractSingle
-		RunWait(@ComSpec & " /c " & @ScriptDir&'\quickbms.exe "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputSinglePak)&'" "'&GUICtrlRead($inputSinglePakOuput)&'"')
+		RunWait(@ComSpec & " /c " & '"'&@ScriptDir&'\quickbms.exe" "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputSinglePak)&'" "'&GUICtrlRead($inputSinglePakOuput)&'"')
 
 EndSwitch
 WEnd
