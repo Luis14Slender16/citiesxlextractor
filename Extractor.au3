@@ -1,5 +1,5 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.3
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.7
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -20,38 +20,35 @@ $OutputFolder = @DesktopDir&"\CitiesXL_Data_Files"
 $SinglePakOuput = $OutputFolder
 $SinglePak = ""
 
-$var = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "ProgramFilesDir")
-
-
 #Region ### START Koda GUI section ### Form=C:\Users\Jeremy\Desktop\citiesxlextractor\CXLExtractor.kxf
-$_1 = GUICreate("CXL Pak Extractor", 523, 414, -1, -1)
-$File = GUICtrlCreateMenu("&File")
-$MenuExit = GUICtrlCreateMenuItem("Exit", $File)
-$Help = GUICtrlCreateMenu("&Help")
-$menuUpdates = GUICtrlCreateMenuItem("Check For Updates", $Help)
-$menuHelp = GUICtrlCreateMenuItem("Help", $Help)
-$menuAbout = GUICtrlCreateMenuItem("About", $Help)
-GUICtrlCreateLabel("Cities XL Pak and Patch file extractor", 48, 8, 434, 33)
-GUICtrlSetFont(-1, 18, 800, 0, "MS Sans Serif")
-GUICtrlCreateGroup("Multiple File Extract", 8, 48, 505, 161)
-$inputPakFolder = GUICtrlCreateInput($PakFolder, 16, 88, 401, 21)
-GUICtrlCreateLabel("Cities XL Pak Folder", 16, 64, 99, 17)
-$btnInstallFolderSelect = GUICtrlCreateButton("Select...", 424, 80, 75, 17, $WS_GROUP)
-GUICtrlCreateLabel("Output Folder", 16, 120, 68, 17)
-$inputOutputFolder = GUICtrlCreateInput($OutputFolder, 16, 136, 401, 21)
-$btnOuputFolderSelect = GUICtrlCreateButton("Select...", 424, 138, 75, 17, $WS_GROUP)
-$btnExtractAll = GUICtrlCreateButton("Extract All", 223, 168, 75, 25, $WS_GROUP)
-GUICtrlCreateGroup("", -99, -99, 1, 1)
-GUICtrlCreateGroup("Single File Extract", 8, 216, 505, 161)
-GUICtrlCreateLabel("Pak File to extract:", 16, 232, 92, 17)
-$inputSinglePak = GUICtrlCreateInput($SinglePak, 16, 256, 401, 21)
-$btnSinglePakSelect = GUICtrlCreateButton("Select...", 424, 256, 75, 17, $WS_GROUP)
-$btnExtractSingle = GUICtrlCreateButton("Extract", 232, 344, 75, 25, $WS_GROUP)
-GUICtrlCreateLabel("Ouput Folder", 16, 288, 65, 17)
-$inputSinglePakOuput = GUICtrlCreateInput($SinglePakOuput, 16, 312, 401, 21)
-$btnSelectOuputSingle = GUICtrlCreateButton("Select...", 424, 312, 75, 17, $WS_GROUP)
-GUICtrlCreateGroup("", -99, -99, 1, 1)
-GUISetState(@SW_SHOW)
+	$_1 = GUICreate("CXL Pak Extractor", 523, 414, -1, -1)
+	$File = GUICtrlCreateMenu("&File")
+	$MenuExit = GUICtrlCreateMenuItem("Exit", $File)
+	$Help = GUICtrlCreateMenu("&Help")
+	$menuUpdates = GUICtrlCreateMenuItem("Check For Updates", $Help)
+	$menuHelp = GUICtrlCreateMenuItem("Help", $Help)
+	$menuAbout = GUICtrlCreateMenuItem("About", $Help)
+	GUICtrlCreateLabel("Cities XL Pak and Patch file extractor", 48, 8, 434, 33)
+	GUICtrlSetFont(-1, 18, 800, 0, "MS Sans Serif")
+	GUICtrlCreateGroup("Multiple File Extract", 8, 48, 505, 161)
+	$inputPakFolder = GUICtrlCreateInput($PakFolder, 16, 88, 401, 21)
+	GUICtrlCreateLabel("Cities XL Pak Folder", 16, 64, 99, 17)
+	$btnInstallFolderSelect = GUICtrlCreateButton("Select...", 424, 80, 75, 17, $WS_GROUP)
+	GUICtrlCreateLabel("Output Folder", 16, 120, 68, 17)
+	$inputOutputFolder = GUICtrlCreateInput($OutputFolder, 16, 136, 401, 21)
+	$btnOuputFolderSelect = GUICtrlCreateButton("Select...", 424, 138, 75, 17, $WS_GROUP)
+	$btnExtractAll = GUICtrlCreateButton("Extract All", 223, 168, 75, 25, $WS_GROUP)
+	GUICtrlCreateGroup("", -99, -99, 1, 1)
+	GUICtrlCreateGroup("Single File Extract", 8, 216, 505, 161)
+	GUICtrlCreateLabel("Pak File to extract:", 16, 232, 92, 17)
+	$inputSinglePak = GUICtrlCreateInput($SinglePak, 16, 256, 401, 21)
+	$btnSinglePakSelect = GUICtrlCreateButton("Select...", 424, 256, 75, 17, $WS_GROUP)
+	$btnExtractSingle = GUICtrlCreateButton("Extract", 232, 344, 75, 25, $WS_GROUP)
+	GUICtrlCreateLabel("Ouput Folder", 16, 288, 65, 17)
+	$inputSinglePakOuput = GUICtrlCreateInput($SinglePakOuput, 16, 312, 401, 21)
+	$btnSelectOuputSingle = GUICtrlCreateButton("Select...", 424, 312, 75, 17, $WS_GROUP)
+	GUICtrlCreateGroup("", -99, -99, 1, 1)
+	GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
 While 1
@@ -76,7 +73,7 @@ While 1
 		GUICtrlSetData($inputPakFolder, $PakFolder)
 
 	Case $btnOuputFolderSelect
-		$OutputFolder = FileSelectFolder("Select a Folder to output all files to...", "c:\")
+		$OutputFolder = FileSelectFolder("Select a Folder to output all files to...", "c:\", 7)
 		GUICtrlSetData($inputOutputFolder, $OutputFolder)
 
 	Case $btnSinglePakSelect
@@ -84,14 +81,16 @@ While 1
 		GUICtrlSetData($inputSinglePak, $SinglePak)
 
 	Case $btnOuputFolderSelect
-		$SinglePakOuput = FileSelectFolder("Select a Folder to output files to...", "c:\")
+		$SinglePakOuput = FileSelectFolder("Select a Folder to output files to...", "c:\", 7)
 		GUICtrlSetData($inputSinglePakOuput, $SinglePakOuput)
 
 	Case $btnExtractAll
-		RunWait(@ComSpec & " /c " & '"'&@ScriptDir&'\quickbms.exe" "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputPakFolder)&'" "'&GUICtrlRead($inputOutputFolder)&'"')
+		If Not FileExists(GUICtrlRead($inputOutputFolder)) Then DirCreate(GUICtrlRead($inputOutputFolder))
+		RunWait(@ComSpec & " /c " & '""'&@ScriptDir&'\quickbms.exe" -o "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputPakFolder)&'" "'&GUICtrlRead($inputOutputFolder)&'""')
 
 	Case $btnExtractSingle
-		RunWait(@ComSpec & " /c " & '"'&@ScriptDir&'\quickbms.exe" "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputSinglePak)&'" "'&GUICtrlRead($inputSinglePakOuput)&'"')
+		If Not FileExists(GUICtrlRead($inputSinglePakOuput)) Then DirCreate(GUICtrlRead($inputSinglePakOuput))
+		RunWait(@ComSpec & " /c " & '""'&@ScriptDir&'\quickbms.exe" -o "'&@ScriptDir&'\citiesxl.bms" "'&GUICtrlRead($inputSinglePak)&'" "'&GUICtrlRead($inputSinglePakOuput)&'""')
 
 EndSwitch
 WEnd
