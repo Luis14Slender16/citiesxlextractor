@@ -5,7 +5,7 @@
 		<property name="Top" vt="Int16">166</property>
 		<property name="Width" vt="Int16">538</property>
 		<property name="Height" vt="Int16">451</property>
-		<property name="Caption" vt="String">CXL Pak Extractor</property>
+		<property name="Caption" vt="String">_Text(&quot;apptitle&quot;)</property>
 		<property name="Color" vt="Ident">clBtnFace</property>
 		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 		<property name="Font.Color" vt="Ident">clWindowText</property>
@@ -20,14 +20,15 @@
 		<property name="ExStyle" vt="Int16">256</property>
 		<property name="Version" vt="String">1.04</property>
 		<property name="FormOptExpVars" vt="True">True</property>
+		<property name="FormOptIndentCount" vt="Int8">0</property>
 		<property name="PixelsPerInch" vt="Int8">96</property>
 		<property name="TextHeight" vt="Int8">13</property>
 	</properties>
 	<components>
 		<object type="TAMenu" name="Menu1">
 			<properties>
-				<property name="Left" vt="Int8">8</property>
-				<property name="Top" vt="Int8">8</property>
+				<property name="Left" vt="Int8">0</property>
+				<property name="Top" vt="Int8">0</property>
 				<property name="Width" vt="Int8">28</property>
 				<property name="Height" vt="Int8">28</property>
 				<property name="Associate" vt="Ident">Owner</property>
@@ -37,12 +38,28 @@
 		</object>
 		<object type="TALabel" name="">
 			<properties>
-				<property name="Left" vt="Int8">48</property>
+				<property name="Left" vt="Int8">16</property>
+				<property name="Top" vt="Int8">56</property>
+				<property name="Width" vt="Int8">71</property>
+				<property name="Height" vt="Int8">17</property>
+				<property name="AutoSize" vt="False">False</property>
+				<property name="Caption" vt="String">_Text(&quot;outputfolder&quot;)</property>
+				<property name="TabOrder" vt="Int8">5</property>
+				<property name="HaveVariable" vt="False">False</property>
+				<property name="CtrlStyle" vt="Int32">1342177536</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set"/>
+			</properties>
+			<components/>
+		</object>
+		<object type="TALabel" name="">
+			<properties>
+				<property name="Left" vt="Int8">24</property>
 				<property name="Top" vt="Int8">8</property>
-				<property name="Width" vt="Int16">434</property>
+				<property name="Width" vt="Int16">474</property>
 				<property name="Height" vt="Int8">33</property>
 				<property name="AutoSize" vt="False">False</property>
-				<property name="Caption" vt="String">Cities XL Pak and Patch file extractor</property>
+				<property name="Caption" vt="String">_Text(&quot;title&quot;)</property>
 				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 				<property name="Font.Color" vt="Ident">clWindowText</property>
 				<property name="Font.Height" vt="Int8">-24</property>
@@ -60,12 +77,12 @@
 		<object type="TAGroup" name="">
 			<properties>
 				<property name="Left" vt="Int8">8</property>
-				<property name="Top" vt="Int8">48</property>
+				<property name="Top" vt="Int8">112</property>
 				<property name="Width" vt="Int16">505</property>
-				<property name="Height" vt="Int16">161</property>
+				<property name="Height" vt="Int8">105</property>
 				<property name="CtrlStyle" vt="Int32">1342308359</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
-				<property name="Caption" vt="String">Multiple File Extract</property>
+				<property name="Caption" vt="String">_Text(&quot;grplblmulti&quot;)</property>
 				<property name="TabOrder" vt="Int8">1</property>
 				<property name="Resizing" vt="Set"/>
 			</properties>
@@ -91,7 +108,7 @@
 						<property name="Width" vt="Int8">99</property>
 						<property name="Height" vt="Int8">17</property>
 						<property name="AutoSize" vt="False">False</property>
-						<property name="Caption" vt="String">Cities XL Pak Folder</property>
+						<property name="Caption" vt="String">_Text(&quot;pakfolder&quot;)</property>
 						<property name="TabOrder" vt="Int8">1</property>
 						<property name="HaveVariable" vt="False">False</property>
 						<property name="CtrlStyle" vt="Int32">1342177536</property>
@@ -103,10 +120,10 @@
 				<object type="TAButton" name="btnInstallFolderSelect">
 					<properties>
 						<property name="Left" vt="Int16">416</property>
-						<property name="Top" vt="Int8">32</property>
+						<property name="Top" vt="Int8">40</property>
 						<property name="Width" vt="Int8">75</property>
 						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="String">Select...</property>
+						<property name="Caption" vt="String">_Text(&quot;select&quot;)</property>
 						<property name="TabOrder" vt="Int8">2</property>
 						<property name="OnClick" vt="String">btnInstallFolderSelectClick</property>
 						<property name="Color" vt="Ident">clBtnFace</property>
@@ -116,60 +133,14 @@
 					</properties>
 					<components/>
 				</object>
-				<object type="TALabel" name="">
-					<properties>
-						<property name="Left" vt="Int8">8</property>
-						<property name="Top" vt="Int8">72</property>
-						<property name="Width" vt="Int8">68</property>
-						<property name="Height" vt="Int8">17</property>
-						<property name="AutoSize" vt="False">False</property>
-						<property name="Caption" vt="String">Output Folder</property>
-						<property name="TabOrder" vt="Int8">3</property>
-						<property name="HaveVariable" vt="False">False</property>
-						<property name="CtrlStyle" vt="Int32">1342177536</property>
-						<property name="CtrlExStyle" vt="Int8">0</property>
-						<property name="Resizing" vt="Set"/>
-					</properties>
-					<components/>
-				</object>
-				<object type="TAInput" name="inputOutputFolder">
-					<properties>
-						<property name="Left" vt="Int8">8</property>
-						<property name="Top" vt="Int8">88</property>
-						<property name="Width" vt="Int16">401</property>
-						<property name="Height" vt="Int8">21</property>
-						<property name="TabOrder" vt="Int8">4</property>
-						<property name="Text" vt="String">%OutputFolder%</property>
-						<property name="CtrlStyle" vt="Int32">1342242944</property>
-						<property name="CtrlExStyle" vt="Int16">512</property>
-						<property name="Resizing" vt="Set">DockHeight</property>
-					</properties>
-					<components/>
-				</object>
-				<object type="TAButton" name="btnOuputFolderSelect">
-					<properties>
-						<property name="Left" vt="Int16">416</property>
-						<property name="Top" vt="Int8">90</property>
-						<property name="Width" vt="Int8">75</property>
-						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="String">Select...</property>
-						<property name="TabOrder" vt="Int8">5</property>
-						<property name="OnClick" vt="String">btnOuputFolderSelectClick</property>
-						<property name="Color" vt="Ident">clBtnFace</property>
-						<property name="CtrlStyle" vt="Int32">1342373888</property>
-						<property name="CtrlExStyle" vt="Int8">0</property>
-						<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
-					</properties>
-					<components/>
-				</object>
 				<object type="TAButton" name="btnExtractAll">
 					<properties>
-						<property name="Left" vt="Int16">215</property>
-						<property name="Top" vt="Int8">120</property>
+						<property name="Left" vt="Int16">224</property>
+						<property name="Top" vt="Int8">72</property>
 						<property name="Width" vt="Int8">75</property>
 						<property name="Height" vt="Int8">25</property>
-						<property name="Caption" vt="String">Extract All</property>
-						<property name="TabOrder" vt="Int8">6</property>
+						<property name="Caption" vt="String">_Text(&quot;extractall&quot;)</property>
+						<property name="TabOrder" vt="Int8">3</property>
 						<property name="OnClick" vt="String">btnExtractAllClick</property>
 						<property name="Color" vt="Ident">clBtnFace</property>
 						<property name="CtrlStyle" vt="Int32">1342373888</property>
@@ -183,12 +154,12 @@
 		<object type="TAGroup" name="">
 			<properties>
 				<property name="Left" vt="Int8">8</property>
-				<property name="Top" vt="Int16">216</property>
+				<property name="Top" vt="Int16">224</property>
 				<property name="Width" vt="Int16">505</property>
-				<property name="Height" vt="Int16">161</property>
+				<property name="Height" vt="Int8">105</property>
 				<property name="CtrlStyle" vt="Int32">1342308359</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
-				<property name="Caption" vt="String">Single File Extract</property>
+				<property name="Caption" vt="String">_Text(&quot;grplblSingle&quot;)</property>
 				<property name="TabOrder" vt="Int8">2</property>
 				<property name="Resizing" vt="Set"/>
 			</properties>
@@ -197,9 +168,9 @@
 					<properties>
 						<property name="Left" vt="Int8">8</property>
 						<property name="Top" vt="Int8">16</property>
-						<property name="Width" vt="Int8">92</property>
+						<property name="Width" vt="Int8">122</property>
 						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="String">Pak File to extract:</property>
+						<property name="Caption" vt="String">_Text(&quot;PakFile&quot;)</property>
 						<property name="TabOrder" vt="Int8">0</property>
 						<property name="HaveVariable" vt="False">False</property>
 						<property name="CtrlStyle" vt="Int32">1342177536</property>
@@ -228,7 +199,7 @@
 						<property name="Top" vt="Int8">40</property>
 						<property name="Width" vt="Int8">75</property>
 						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="String">Select...</property>
+						<property name="Caption" vt="String">_Text(&quot;select&quot;)</property>
 						<property name="TabOrder" vt="Int8">2</property>
 						<property name="OnClick" vt="String">btnSinglePakSelectClick</property>
 						<property name="Color" vt="Ident">clBtnFace</property>
@@ -241,10 +212,10 @@
 				<object type="TAButton" name="btnExtractSingle">
 					<properties>
 						<property name="Left" vt="Int16">224</property>
-						<property name="Top" vt="Int16">128</property>
+						<property name="Top" vt="Int8">72</property>
 						<property name="Width" vt="Int8">75</property>
 						<property name="Height" vt="Int8">25</property>
-						<property name="Caption" vt="String">Extract</property>
+						<property name="Caption" vt="String">_text(&quot;extract&quot;)</property>
 						<property name="TabOrder" vt="Int8">3</property>
 						<property name="OnClick" vt="String">btnExtractSingleClick</property>
 						<property name="Color" vt="Ident">clBtnFace</property>
@@ -254,63 +225,48 @@
 					</properties>
 					<components/>
 				</object>
-				<object type="TALabel" name="">
-					<properties>
-						<property name="Left" vt="Int8">8</property>
-						<property name="Top" vt="Int8">72</property>
-						<property name="Width" vt="Int8">65</property>
-						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="String">Ouput Folder</property>
-						<property name="TabOrder" vt="Int8">4</property>
-						<property name="HaveVariable" vt="False">False</property>
-						<property name="CtrlStyle" vt="Int32">1342177536</property>
-						<property name="CtrlExStyle" vt="Int8">0</property>
-						<property name="Resizing" vt="Set"/>
-					</properties>
-					<components/>
-				</object>
-				<object type="TAInput" name="inputSinglePakOuput">
-					<properties>
-						<property name="Left" vt="Int8">8</property>
-						<property name="Top" vt="Int8">96</property>
-						<property name="Width" vt="Int16">401</property>
-						<property name="Height" vt="Int8">21</property>
-						<property name="TabOrder" vt="Int8">5</property>
-						<property name="Text" vt="String">%SinglePakOuput%</property>
-						<property name="CtrlStyle" vt="Int32">1342242944</property>
-						<property name="CtrlExStyle" vt="Int16">512</property>
-						<property name="Resizing" vt="Set">DockHeight</property>
-					</properties>
-					<components/>
-				</object>
-				<object type="TAButton" name="btnSelectOuputSingle">
-					<properties>
-						<property name="Left" vt="Int16">416</property>
-						<property name="Top" vt="Int8">96</property>
-						<property name="Width" vt="Int8">75</property>
-						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="String">Select...</property>
-						<property name="TabOrder" vt="Int8">6</property>
-						<property name="Color" vt="Ident">clBtnFace</property>
-						<property name="CtrlStyle" vt="Int32">1342390272</property>
-						<property name="CtrlExStyle" vt="Int8">0</property>
-						<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
-					</properties>
-					<components/>
-				</object>
 			</components>
+		</object>
+		<object type="TAButton" name="btnOutputFolderSelect">
+			<properties>
+				<property name="Left" vt="Int16">424</property>
+				<property name="Top" vt="Int8">80</property>
+				<property name="Width" vt="Int8">75</property>
+				<property name="Height" vt="Int8">17</property>
+				<property name="Caption" vt="String">_Text(&quot;select&quot;)</property>
+				<property name="TabOrder" vt="Int8">4</property>
+				<property name="Color" vt="Ident">clBtnFace</property>
+				<property name="CtrlStyle" vt="Int32">1342390272</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAInput" name="inputOutputFolder">
+			<properties>
+				<property name="Left" vt="Int8">16</property>
+				<property name="Top" vt="Int8">80</property>
+				<property name="Width" vt="Int16">401</property>
+				<property name="Height" vt="Int8">21</property>
+				<property name="TabOrder" vt="Int8">3</property>
+				<property name="Text" vt="String">%OutputFolder%</property>
+				<property name="CtrlStyle" vt="Int32">1342242944</property>
+				<property name="CtrlExStyle" vt="Int16">512</property>
+				<property name="Resizing" vt="Set">DockHeight</property>
+			</properties>
+			<components/>
 		</object>
 		<object type="TMainMenu" name="MainMenu1">
 			<properties/>
 			<components>
 				<object type="TAMenuItem" name="File">
 					<properties>
-						<property name="Caption" vt="String">&amp;File</property>
+						<property name="Caption" vt="String">_&amp;Text(&quot;filemenu&quot;)</property>
 					</properties>
 					<components>
 						<object type="TAMenuItem" name="MenuExit">
 							<properties>
-								<property name="Caption" vt="String">Exit</property>
+								<property name="Caption" vt="String">_Text(&quot;exitmenu&quot;)</property>
 								<property name="OnClick" vt="String">ExitClick</property>
 							</properties>
 							<components/>
@@ -319,26 +275,26 @@
 				</object>
 				<object type="TAMenuItem" name="Help">
 					<properties>
-						<property name="Caption" vt="String">&amp;Help</property>
+						<property name="Caption" vt="String">_T&amp;ext(&quot;helpmenu&quot;)</property>
 					</properties>
 					<components>
 						<object type="TAMenuItem" name="menuUpdates">
 							<properties>
-								<property name="Caption" vt="String">Check For Updates</property>
+								<property name="Caption" vt="String">_Text(&quot;updatemenu&quot;)</property>
 								<property name="OnClick" vt="String">MenuItem1Click</property>
 							</properties>
 							<components/>
 						</object>
 						<object type="TAMenuItem" name="menuHelp">
 							<properties>
-								<property name="Caption" vt="String">Help</property>
+								<property name="Caption" vt="String">_Text(&quot;helpmenu&quot;)</property>
 								<property name="OnClick" vt="String">HelClick</property>
 							</properties>
 							<components/>
 						</object>
 						<object type="TAMenuItem" name="menuAbout">
 							<properties>
-								<property name="Caption" vt="String">About</property>
+								<property name="Caption" vt="String">_Text(&quot;aboutmenu&quot;)</property>
 								<property name="OnClick" vt="String">AboutClick</property>
 							</properties>
 							<components/>
