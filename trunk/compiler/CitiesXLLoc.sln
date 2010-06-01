@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PackageManager", "PackageManager\PackageManager.vbproj", "{B6CA9D0A-2E5C-469C-8EAD-2DB9C3BD49DD}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FontManipulator", "FontManipulator\FontManipulator.vbproj", "{160F2BAB-0289-4975-80FB-44FCC65CD7DC}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PackageManipulator", "PackageManipulator\PackageManipulator.vbproj", "{43E653F3-6748-4A25-A471-E1D163CCE9ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6CA9D0A-2E5C-469C-8EAD-2DB9C3BD49DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6CA9D0A-2E5C-469C-8EAD-2DB9C3BD49DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6CA9D0A-2E5C-469C-8EAD-2DB9C3BD49DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6CA9D0A-2E5C-469C-8EAD-2DB9C3BD49DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{160F2BAB-0289-4975-80FB-44FCC65CD7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{160F2BAB-0289-4975-80FB-44FCC65CD7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{160F2BAB-0289-4975-80FB-44FCC65CD7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{160F2BAB-0289-4975-80FB-44FCC65CD7DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E653F3-6748-4A25-A471-E1D163CCE9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E653F3-6748-4A25-A471-E1D163CCE9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E653F3-6748-4A25-A471-E1D163CCE9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E653F3-6748-4A25-A471-E1D163CCE9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
