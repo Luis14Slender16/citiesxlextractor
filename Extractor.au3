@@ -39,17 +39,17 @@ $SinglePak = ""
 	GUICtrlCreateGroup(_Text("grplblmulti"), 8, 112, 505, 105)
 	$inputPakFolder = GUICtrlCreateInput($PakFolder, 16, 152, 401, 21)
 	GUICtrlCreateLabel(_Text("pakfolder"), 16, 128, 99, 17)
-	$btnInstallFolderSelect = GUICtrlCreateButton(_Text("select"), 424, 152, 75, 17, $WS_GROUP)
+	$btnInstallFolderSelect = GUICtrlCreateButton(_Text("btnselect"), 424, 152, 75, 17, $WS_GROUP)
 	$btnExtractAll = GUICtrlCreateButton(_Text("extractall"), 232, 184, 75, 25, $WS_GROUP)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	GUICtrlCreateGroup(_Text("grplblSingle"), 8, 224, 505, 105)
 	GUICtrlCreateLabel(_Text("PakFile"), 16, 240, 130, 17)
 	$inputSinglePak = GUICtrlCreateInput($SinglePak, 16, 264, 401, 21)
-	$btnSinglePakSelect = GUICtrlCreateButton(_Text("select"), 424, 264, 75, 17, $WS_GROUP)
+	$btnSinglePakSelect = GUICtrlCreateButton(_Text("btnselect"), 424, 264, 75, 17, $WS_GROUP)
 	$btnExtractSingle = GUICtrlCreateButton(_Text("extract"), 232, 296, 75, 25, $WS_GROUP)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$inputOutputFolder = GUICtrlCreateInput($OutputFolder, 16, 80, 401, 21)
-	$btnOutputFolderSelect = GUICtrlCreateButton(_Text("select"), 424, 80, 75, 17, $WS_GROUP)
+	$btnOutputFolderSelect = GUICtrlCreateButton(_Text("btnselect"), 424, 80, 75, 17, $WS_GROUP)
 	GUICtrlCreateLabel(_Text("outputfolder"), 16, 56, 71, 17)
 	GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
@@ -72,11 +72,11 @@ While 1
 		_About()
 
 	Case $btnInstallFolderSelect
-		$PakFolder = FileSelectFolder("Select a Folder to scan...", "c:\")
+		$PakFolder = FileSelectFolder("Select a Folder to scan...", "")
 		GUICtrlSetData($inputPakFolder, $PakFolder)
 
 	Case $btnOutputFolderSelect
-		$OutputFolder = FileSelectFolder("Select a Folder to output all files to...", "c:\", 7)
+		$OutputFolder = FileSelectFolder("Select a Folder to output all files to...", "", 7)
 		GUICtrlSetData($inputOutputFolder, $OutputFolder)
 
 	Case $btnSinglePakSelect
