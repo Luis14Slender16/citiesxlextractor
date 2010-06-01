@@ -1,0 +1,29 @@
+CitiesXL fnt 文件
+Header 00h
+4	int32	Identifier		01 00 00 00
+4	Int32	图宽			00 02 00 00 // 512
+4	Int32	图高			00 02 00 00 // 512
+4	Int32	字占位宽？		0E 00 00 00
+4	Int32	字体宽			0B 00 00 00
+4	Int32	字体高			0B 00 00 00
+4	Int32	字占位高？		0E 00 00 00
+
+1Ch --- 1EFh 字符列表
+4	Int32	字符总数		E8 00 00 00 //以确认
+(
+2	UInt16	Unicode			20 00
+){字符总数}
+
+1F0h
+4	Int32	字符总数		E8 00 00 00 //以确认
+(
+2	UInt16	Left			F9 01
+2	UInt16	Top			12 00
+2	UInt16	Right			FF 01
+2	UInt16	Bottom			1A 00
+){字符总数}
+
+934h --  图形数据
+(
+2	?	? : A4R4G4B4?		FF FF
+){图宽*图高}
