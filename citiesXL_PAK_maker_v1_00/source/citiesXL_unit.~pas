@@ -152,8 +152,8 @@ begin {proc. TForm1.FormCreate}
   ComboBox_use_Zlib.ItemIndex := 2; //
 
   ConfigLoad;
-  Edit1.Text := ParamStr(1);
-  Edit2.Text := ParamStr(2);
+  Edit1.Text := ParamStr(1)
+  Edit2.Text := ParamStr(2)
 end;  {proc. TForm1.FormCreate}
 
 
