@@ -19,19 +19,12 @@ Type
   TForm1 = class(TForm)
     Label1: TLabel;
     Label2: TLabel;
-    OpenDialog1: TOpenDialog;
     Edit1: TEdit;
     Edit2: TEdit;
-    Button_XtractAll: TButton;
     ComboBox_use_Zlib: TComboBox;
-    Button_MakeArchive: TButton;
     Gauge1: TGauge;
+	
     procedure FormCreate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormResize(Sender: TObject);
-
-    procedure Button_XtractAllClick(Sender: TObject);
-    procedure Button_MakeArchiveClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -51,6 +44,10 @@ implementation
 
 {$R *.dfm}
 
+
+//
+//  -- Pre Setup --
+//
 
 Procedure TButton.CreateParams(var Params: TCreateParams);
 Begin
@@ -86,37 +83,6 @@ Begin {Func. Get_ZLib_mode_Object_from_list}
   //vk_DebugPrintS('Zlib_mode lekérdezés : '+SzamTagol(Result));
 End;  {Func. Get_ZLib_mode_Object_from_list}
 
-
-procedure TForm1.FormCreate(Sender: TObject);
-Var S,S0 : String;
-    I : Integer;
-Var Mode : String;
-
-begin {proc. TForm1.FormCreate}
-  Caption := 'CitiesXL eXtractor / Maker [v'+PAK_Unit_Version+' FINAL ]';
-  Application.Title := Caption;
-// [akLeft,akTop,akRight,akBottom]
-
-  ComboBox_use_Zlib.Items.Clear;
-  ComboBox_use_Zlib.Items.AddObject('never',Pointer(_citiesXL_comp_NONE));
-  ComboBox_use_Zlib.Items.AddObject('clever',Pointer(_citiesXL_comp_CLEVER));
-  ComboBox_use_Zlib.Items.AddObject('always',Pointer(_citiesXL_comp_FORCE_ZLIB));
-  ComboBox_use_Zlib.ItemIndex := 2; //
-
-  Mode := ParamStr(1);
-  Edit1.Text := ParamStr(2);
-  Edit2.Text := ParamStr(3);
-  If Mode = 'x' then
-    Begin
-       
-    End;
-  If Mode = 'c' then
-    Begin
-
-    End;
-end;  {proc. TForm1.FormCreate}
-
-
 Procedure CallBack2(L:LongInt;pFileName:PChar);
 Var Db,Index : LongInt;
     Szazalek : Integer;
@@ -133,63 +99,6 @@ Begin
   Form1.caption := pFileName;
   Application.ProcessMessages;
 End;
-
-
-procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
-begin  {proc. TForm1.FormClose}
-  CallBack2(0,'Exiting...');
-end;   {proc. TForm1.FormClose}
-
-procedure TForm1.FormResize(Sender: TObject);
-Const MinW = 450;
-      MinH = 135;
-      MaxH = 150;
-begin {proc. TForm1.FormResize}
-  If Width < MinW Then Width := MinW;
-  If Height < MinH Then Height := MinH;
-  If MaxH < Height Then Height := MaxH;
-end;  {proc. TForm1.FormResize}
-
-
-procedure TForm1.Button_MakeArchiveClick(Sender: TObject);
-Var SrcDir,TrgtARCHIVEfileName : String;
-    FilesNum : Integer;
-    Success : Boolean;
-    CompressionMode : Integer;
-
-Begin {proc. TForm1.Button_MakeArchiveClick}
-  TrgtARCHIVEfileName := Edit1.Text;
-  If TrgtARCHIVEfileName = '' Then
-    Begin
-      Exit;
-    End;
-  SrcDir := Edit2.Text;
-  If SrcDir = '' Then
-    Begin
-      Exit;
-    End;
-  If FileExists(TrgtARCHIVEfileName) Then
-    Begin
-      //  CONFIRMATION!
-      If MessageDlg('Warning!'#13'The given file already exists!'+
-                     #13'Do you really want to overwrite it?',
-                     mtConfirmation, [mbYes, mbNo], 0) <> mrYes Then Exit;
-    End;
-
-  CompressionMode := Get_ZLib_mode_Object_from_list;
-  Success := CitiesXL_PAK_maker_bacter(SrcDir,
-                                       TrgtARCHIVEfileName,
-                                       CompressionMode,
-                                       CallBack2,FilesNum);
-
-  If Not Success Then
-    Begin
-      Caption := 'Error :-(';
-    End Else
-    Begin
-      Caption := 'O.K. Packed: ' + IntToStr(FilesNum)+' files!';
-    End;
-End;  {proc. TForm1.Button_MakeArchiveClick}
 
 
 Procedure Extraction(FileName,TargetName : String);
@@ -211,10 +120,72 @@ Begin {Proc. Extraction}
   Form1.Caption := S;
 End;  {Proc. Extraction}
 
-procedure TForm1.Button_XtractAllClick(Sender: TObject);
-begin
-  Extraction(Edit1.Text, Edit2.Text);
-end;
+//
+//  -- Create form and do action --
+//
+
+procedure TForm1.FormCreate(Sender: TObject);
+Var SrcDir,TrgtARCHIVEfileName : String;
+    FilesNum : Integer;
+    Success : Boolean;
+    CompressionMode : Integer;
+    Mode : String;
+
+begin {proc. TForm1.FormCreate}
+  Caption := 'CitiesXL eXtractor / Maker [v'+PAK_Unit_Version+' FINAL ]';
+  Application.Title := Caption;
+// [akLeft,akTop,akRight,akBottom]
+
+  ComboBox_use_Zlib.Items.Clear;
+  ComboBox_use_Zlib.Items.AddObject('never',Pointer(_citiesXL_comp_NONE));
+  ComboBox_use_Zlib.Items.AddObject('clever',Pointer(_citiesXL_comp_CLEVER));
+  ComboBox_use_Zlib.Items.AddObject('always',Pointer(_citiesXL_comp_FORCE_ZLIB));
+  ComboBox_use_Zlib.ItemIndex := 2; //
+
+  Mode := ParamStr(1);
+  Edit1.Text := ParamStr(2);
+  Edit2.Text := ParamStr(3);
+
+  // Extract is first var is X
+
+  If Mode = 'x' then
+    Begin
+      Extraction(Edit1.Text, Edit2.Text);
+    End;
+
+  // Compile if first Var is C
+
+  If Mode = 'c' then
+	Begin
+	  TrgtARCHIVEfileName := Edit1.Text;
+	  If TrgtARCHIVEfileName = '' Then
+		Begin
+		  Exit;
+		End;
+	  SrcDir := Edit2.Text;
+	  If SrcDir = '' Then
+		Begin
+		  Exit;
+		End;
+	  If FileExists(TrgtARCHIVEfileName) Then
+		Begin
+		  //  CONFIRMATION!
+		  If MessageDlg('Warning!'#13'The given file already exists!'+
+						 #13'Do you really want to overwrite it?',
+						 mtConfirmation, [mbYes, mbNo], 0) <> mrYes Then Exit;
+		End;
+	  CompressionMode := Get_ZLib_mode_Object_from_list;
+	  Success := CitiesXL_PAK_maker_bacter(SrcDir, TrgtARCHIVEfileName, CompressionMode, CallBack2,FilesNum);
+
+	  If Not Success Then
+		Begin
+		  Caption := 'Error :-(';
+		End Else
+		Begin
+		  Caption := 'O.K. Packed: ' + IntToStr(FilesNum)+' files!';
+		End;
+	End;
+end;  {proc. TForm1.FormCreate}
 
 
 end.
