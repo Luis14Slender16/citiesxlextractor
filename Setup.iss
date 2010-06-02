@@ -1,10 +1,9 @@
 [Files]
-Source: C:\Users\Jeremy\Desktop\citiesxlextractor\quickbms.exe; DestDir: {app}
-Source: C:\Users\Jeremy\Desktop\citiesxlextractor\citiesxl.bms; DestDir: {app}
-Source: C:\Users\Jeremy\Desktop\citiesxlextractor\Extractor.exe; DestDir: {app}
 Source: languages\de.ini; DestDir: {app}\languages\
 Source: languages\en.ini; DestDir: {app}\languages\
 Source: languages\fr.ini; DestDir: {app}\languages\
+Source: Compiled\citiesXL_project.exe; DestDir: {app}
+Source: Compiled\Extractor.exe; DestDir: {app}
 [Icons]
 Name: {group}\Cities XL Extractor; Filename: {app}\Extractor.exe; IconFilename: {app}\Extractor.exe; IconIndex: 0
 [Setup]
@@ -18,5 +17,10 @@ AlwaysShowComponentsList=false
 ShowComponentSizes=false
 FlatComponentsList=false
 DisableReadyPage=true
+VersionInfoVersion=2.0
+VersionInfoProductName=Cities XL Extractor
+VersionInfoProductVersion=2.0
 [Dirs]
 Name: {app}\languages
+[Registry]
+Root: HKCU; Subkey: Software\CitiesXL Extractor; ValueType: string; ValueName: ActiveTab; ValueData: 0; Flags: createvalueifdoesntexist uninsdeletekey
