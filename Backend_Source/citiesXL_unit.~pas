@@ -129,8 +129,6 @@ Var SrcDir,TrgtARCHIVEfileName : String;
     FilesNum : Integer;
     Success : Boolean;
     CompressionMode : Integer;
- //	S,S0 : String;
- // I : Integer;
     Mode : String;
 
 begin {proc. TForm1.FormCreate}

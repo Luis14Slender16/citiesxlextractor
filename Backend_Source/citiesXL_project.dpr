@@ -8,7 +8,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.Title := 'Cities XL .PAK eXtractor';
+  Application.Title := 'Cities XL .PAK & .patch eXtractor';
   Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
