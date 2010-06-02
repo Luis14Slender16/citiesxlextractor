@@ -23,8 +23,10 @@ Type
     Edit2: TEdit;
     ComboBox_use_Zlib: TComboBox;
     Gauge1: TGauge;
+    Timer1: TTimer;
 	
     procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
 
   private
     { Private declarations }
@@ -142,10 +144,19 @@ begin {proc. TForm1.FormCreate}
   ComboBox_use_Zlib.Items.AddObject('always',Pointer(_citiesXL_comp_FORCE_ZLIB));
   ComboBox_use_Zlib.ItemIndex := 2; //
 
-  Mode := ParamStr(1);
   Edit1.Text := ParamStr(2);
   Edit2.Text := ParamStr(3);
+end;  {proc. TForm1.FormCreate}
 
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+Var SrcDir,TrgtARCHIVEfileName : String;
+    FilesNum : Integer;
+    Success : Boolean;
+    CompressionMode : Integer;
+    Mode : String;
+begin
+  Mode := ParamStr(1);
   // Extract is first var is X
 
   If Mode = 'x' then
@@ -185,7 +196,7 @@ begin {proc. TForm1.FormCreate}
 		  Caption := 'O.K. Packed: ' + IntToStr(FilesNum)+' files!';
 		End;
 	End;
-end;  {proc. TForm1.FormCreate}
-
+  Close;
+end;
 
 end.

@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 983
-  Top = 606
-  Width = 760
-  Height = 170
+  Left = 930
+  Top = 661
+  Width = 766
+  Height = 178
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,8 +14,8 @@ object Form1: TForm1
   ShowHint = True
   OnCreate = FormCreate
   DesignSize = (
-    744
-    132)
+    750
+    140)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -34,9 +34,9 @@ object Form1: TForm1
   end
   object Gauge1: TGauge
     Left = 8
-    Top = 68
-    Width = 729
-    Height = 58
+    Top = 64
+    Width = 735
+    Height = 70
     Anchors = [akLeft, akRight, akBottom]
     ForeColor = clNavy
     Progress = 0
@@ -44,7 +44,7 @@ object Form1: TForm1
   object Edit1: TEdit
     Left = 56
     Top = 8
-    Width = 681
+    Width = 687
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     Enabled = False
@@ -54,7 +54,7 @@ object Form1: TForm1
   object Edit2: TEdit
     Left = 56
     Top = 40
-    Width = 681
+    Width = 687
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     Enabled = False
@@ -63,7 +63,7 @@ object Form1: TForm1
     Text = 'Edit2'
   end
   object ComboBox_use_Zlib: TComboBox
-    Left = 0
+    Left = 6
     Top = 24
     Width = 65
     Height = 21
@@ -73,5 +73,11 @@ object Form1: TForm1
     ItemHeight = 13
     TabOrder = 2
     Visible = False
+  end
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    Left = 24
+    Top = 8
   end
 end
