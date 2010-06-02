@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_icon=icon.ico
 #AutoIt3Wrapper_outfile=Compiled\Extractor.exe
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.12
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.22
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -16,11 +16,12 @@
 #Include <File.au3>
 
 Global $language = _LanguageDetect()
-
+_DebugMsg("Language Set to "&$language)
 
 $AppName = _Text("appname")
 $AppVersion = FileGetVersion(@ScriptFullPath)
 $installFolder = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Monte Cristo\Cities XL_PATH", "Path")
+$ActiveTab = RegRead("HKCU\Software\CitiesXL Extractor", "ActiveTab")
 If $installFolder = "" Then $installFolder = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Monte Cristo\Cities XL_PATH", "Path") ;64bit compliance
 $PakFolder = $installFolder&"\Paks"
 $OutputFolder = @DesktopDir&"\CitiesXL_Data_Files"
@@ -35,7 +36,7 @@ $Help = GUICtrlCreateMenu(_Text("helpmenu"))
 $menuUpdates = GUICtrlCreateMenuItem(_Text("updatemenu"), $Help)
 $menuHelp = GUICtrlCreateMenuItem(_Text("helpmenu"), $Help)
 $menuAbout = GUICtrlCreateMenuItem(_Text("aboutmenu"), $Help)
-GUICtrlCreateLabel(_Text("title"), 36, 8, 538, 33)
+GUICtrlCreateLabel(_Text("title"), 36, 8, 538, 33, $SS_CENTER)
 GUICtrlSetFont(-1, 18, 800, 0, "MS Sans Serif")
 $Tab1 = GUICtrlCreateTab(10, 56, 590, 177)
 GUICtrlSetResizing(-1, $GUI_DOCKWIDTH+$GUI_DOCKHEIGHT)
@@ -45,29 +46,33 @@ GUICtrlCreateLabel(_Text("outputfolder"), 34, 86, 135, 17)
 GUICtrlCreateLabel(_Text("PakFile"), 34, 139, 135, 17)
 $inputSinglePak = GUICtrlCreateInput($SinglePak, 39, 161, 440, 21)
 $btnExtractSingle = GUICtrlCreateButton(_Text("extract"), 267, 191, 75, 25, $WS_GROUP)
-$btnSinglePakSelect = GUICtrlCreateButton(_Text("select"), 489, 161, 75, 17, $WS_GROUP)
-$btnOutputFolder1 = GUICtrlCreateButton(_Text("select"), 489, 111, 75, 17, $WS_GROUP)
+$btnSinglePakSelect = GUICtrlCreateButton(_Text("btnselect"), 489, 161, 75, 17, $WS_GROUP)
+$btnOutputFolder1 = GUICtrlCreateButton(_Text("btnselect"), 489, 111, 75, 17, $WS_GROUP)
 $tabRestoreBatch = GUICtrlCreateTabItem(_Text("tabMulti"))
 $inputOutputFolder2 = GUICtrlCreateInput($OutputFolder, 39, 109, 440, 21)
 GUICtrlCreateLabel(_Text("outputfolder"), 34, 86, 135, 17)
-$btnOutputFolder2 = GUICtrlCreateButton(_Text("select"), 489, 111, 75, 17, $WS_GROUP)
+$btnOutputFolder2 = GUICtrlCreateButton(_Text("btnselect"), 489, 111, 75, 17, $WS_GROUP)
 GUICtrlCreateLabel(_Text("pakfolder"), 34, 139, 135, 17)
 $inputPakFolder = GUICtrlCreateInput($PakFolder, 39, 161, 440, 21)
-$btnInstallFolderSelect = GUICtrlCreateButton(_Text("select"), 489, 161, 75, 17, $WS_GROUP)
+$btnInstallFolderSelect = GUICtrlCreateButton(_Text("btnselect"), 489, 161, 75, 17, $WS_GROUP)
 $btnExtractAll = GUICtrlCreateButton(_Text("extractall"), 267, 191, 75, 25, $WS_GROUP)
 $tabCompile = GUICtrlCreateTabItem(_Text("tabPackage"))
-GUICtrlSetState(-1,$GUI_SHOW)
 GUICtrlCreateLabel(_Text("outputfile"), 34, 86, 135, 17)
-$inputOutputFile = GUICtrlCreateInput("", 39, 109, 401, 21)
-$btnPackageOutputSelect = GUICtrlCreateButton(_Text("select"), 489, 111, 75, 17, $WS_GROUP)
-$btnPackageInputSelect = GUICtrlCreateButton(_Text("select"), 489, 161, 75, 17, $WS_GROUP)
-$Input1 = GUICtrlCreateInput("", 39, 161, 440, 21)
-$Button3 = GUICtrlCreateButton(_Text("btnCompile"), 267, 191, 75, 25, $WS_GROUP)
+$inputPackageOutput = GUICtrlCreateInput("", 39, 109, 440, 21)
+$btnPackageOutputSelect = GUICtrlCreateButton(_Text("btnselect"), 489, 111, 75, 17, $WS_GROUP)
+$btnPackageInputSelect = GUICtrlCreateButton(_Text("btnselect"), 489, 161, 75, 17, $WS_GROUP)
+$inputPackageInput = GUICtrlCreateInput("", 39, 161, 440, 21)
+$btnCompile = GUICtrlCreateButton(_Text("btnCompile"), 267, 191, 75, 25, $WS_GROUP)
 GUICtrlCreateLabel(_Text("CompileFolder"), 34, 139, 135, 17)
 GUICtrlCreateTabItem("")
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
+If $ActiveTab Then
+	If $ActiveTab = 0 Then GUICtrlSetState($tabRestoreSingle, $GUI_SHOW)
+	If $ActiveTab = 1 Then GUICtrlSetState($tabRestoreBatch, $GUI_SHOW)
+	If $ActiveTab = 2 Then GUICtrlSetState($tabCompile, $GUI_SHOW)
+EndIf
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
@@ -76,18 +81,21 @@ While 1
 	Case $MenuExit
 		Exit
 
+	Case $Tab1
+		RegWrite("HKCU\Software\CitiesXL Extractor", "ActiveTab", "REG_SZ", GUICtrlRead($Tab1))
+
 	Case $menuUpdates
-		MsgBox(0, "Sorry", "Not yet...")
+		MsgBox(0, _Text("msgsry"), _Text("msgsry2"))
 
 	Case $menuHelp
-		MsgBox(0, "Sorry", "Not yet...")
+		MsgBox(0, _Text("msgsry"), _Text("msgsry2"))
 
 	Case $menuAbout
 		_About()
 
 	Case $btnInstallFolderSelect
-		$PakFolder = FileSelectFolder("Select a Folder to scan...", "")
-		GUICtrlSetData($inputPakFolder, $PakFolder)
+		$ScanFolder = FileSelectFolder(_Text("SelectFolderScan"), "")
+		GUICtrlSetData($inputPakFolder, $ScanFolder)
 
 	Case $btnOutputFolder1
 		_outputfolderselect()
@@ -96,14 +104,26 @@ While 1
 		_outputfolderselect()
 
 	Case $btnSinglePakSelect
-		$SinglePak = FileOpenDialog("Select File to extract...", $PakFolder & "\", "Archives (*.pak;*.patch)", 1)
+		$SinglePak = FileOpenDialog(_Text("SelectSinglePak"), $PakFolder & "\", "Archives (*.pak;*.patch)", 1)
 		GUICtrlSetData($inputSinglePak, $SinglePak)
+
+	Case $btnPackageOutputSelect
+		$OutputFile = FileSaveDialog(_Text("SaveAs"), $PakFolder & "\", "Patch File (*.patch)|Pak File (*.pak)", 16)
+		If Not StringInStr($OutputFile, ".patch") And Not StringInStr($OutputFile, ".pak") Then $OutputFile = $OutputFile&".patch"
+		GUICtrlSetData($inputPackageOutput, $OutputFile)
+
+	Case $btnPackageInputSelect
+		$PackageInputFolder = FileSelectFolder(_Text("CompileFolder"), "", 2)
+		GUICtrlSetData($inputPackageInput, $PackageInputFolder)
 
 	Case $btnExtractAll
 		_ExtractFiles(GUICtrlRead($inputPakFolder), GUICtrlRead($inputOutputFolder2))
 
 	Case $btnExtractSingle
 		_ExtractFiles(GUICtrlRead($inputSinglePak), GUICtrlRead($inputOutputFolder1))
+
+	Case $btnCompile
+		_Compile(GUICtrlRead($inputPackageOutput), GUICtrlRead($inputPackageInput))
 
 EndSwitch
 WEnd
@@ -143,39 +163,51 @@ Func _About()
 	WEnd
 EndFunc
 
+Func _Compile($var1, $var2)
+	If $var1 = "" Or $var2 = "" Then
+		_ErrorMsg(_Text("FillFields"))
+	Else
+		ShellExecuteWait(@ScriptDir&'\citiesXL_project.exe', 'c "'&$var1&'" "'&$var2&'"')
+	EndIf
+EndFunc
+
 
 Func _ExtractFiles($var1, $var2)
-	SplashTextOn("Progress...", "Extracting..."&@CRLF&"Preping Extraction Lists...", 700, 60, -1, 20)
-	If StringRight($var1, 1) <> "\" Or StringRight($var1, 1) <> "/" Then $var1 = $var1&"\" ; Ensure it ends with a slash
-	If Not FileExists($var2) Then DirCreate($var2)
-	If StringInStr(FileGetAttrib($var1), "D") Then
-		$listpak = _FileListToArray($var1, "*.pak")
-		$listpatch = _FileListToArray($var1, "*.patch")
-		$c = 1
-		For $a In $listpak
-			$c = $c + 1
-			If StringInStr($a, ".patch") Then
-				SplashTextOn("Progress...", "Extracting Step "&$c&" of "&$listpak[0]&": "&@CRLF&$var1&$a, 700, 60, -1, 20)
-				ShellExecuteWait(@ScriptDir&'\citiesXL_project.exe', 'x "'&$var1&$a&'" "'&$var2&'""')
-			EndIf
-		Next
-		$c = 1
-		For $a In $listpatch
-			$c = $c + 1
-			If StringInStr($a, ".patch") Then
-				SplashTextOn("Progress...", "Extracting Step "&$c&" of "&$listpak[0]&": "&@CRLF&$var1&$a, 700, 60, -1, 20)
-				ShellExecuteWait(@ScriptDir&'\citiesXL_project.exe', 'x "'&$var1&$a&'" "'&$var2&'""')
-			EndIf
-		Next
-
+	If $var1 = "" Or $var2 = "" Then
+		_ErrorMsg(_Text("FillFields"))
 	Else
-		RunWait(@ComSpec & " /c " & '""'&@ScriptDir&'\citiesXL_project.exe" x "'&$var1&'" "'&$var2&'""')
+		SplashTextOn(_Text("Progress"), _Text("Extracting")&@CRLF&"Preping Extraction Lists...", 700, 60, -1, 20)
+		If Not FileExists($var2) Then DirCreate($var2)
+		If StringInStr(FileGetAttrib($var1), "D") Then
+			If StringRight($var1, 1) <> "\" Or StringRight($var1, 1) <> "/" Then $var1 = $var1&"\" ; Ensure it ends with a slash
+			$listpak = _FileListToArray($var1, "*.pak")
+			$listpatch = _FileListToArray($var1, "*.patch")
+			$c = 1
+			$TotalStep = $listpak[0] + $listpatch[0]
+			For $a In $listpak
+				$c = $c + 1
+				If StringInStr($a, ".patch") Then
+					SplashTextOn(_Text("Progress"), _Text("Extracting")&" "&$c&" "&_Text("of")&" "&$TotalStep&": "&@CRLF&$var1&$a, 700, 60, -1, 20)
+					ShellExecuteWait(@ScriptDir&'\citiesXL_project.exe', 'x "'&$var1&$a&'" "'&$var2&'"')
+				EndIf
+			Next
+			For $a In $listpatch
+				$c = $c + 1
+				If StringInStr($a, ".patch") Then
+					SplashTextOn(_Text("Progress"), _Text("Extracting")&" "&$c&" "&_Text("of")&" "&$TotalStep&": "&@CRLF&$var1&$a, 700, 60, -1, 20)
+					ShellExecuteWait(@ScriptDir&'\citiesXL_project.exe', 'x "'&$var1&$a&'" "'&$var2&'"')
+				EndIf
+			Next
+		Else
+			ShellExecuteWait(@ScriptDir&'\citiesXL_project.exe', 'x "'&$var1&'" "'&$var2&'"')
+		EndIf
+		SplashOff()
 	EndIf
 EndFunc
 
 
 Func _outputfolderselect()
-		$OutputFolder = FileSelectFolder("Select a Folder to output all files to...", "", 7)
+		$OutputFolder = FileSelectFolder(_Text("SelectFolderOutput"), "", 7)
 		GUICtrlSetData($inputOutputFolder1, $OutputFolder)
 		GUICtrlSetData($inputOutputFolder2, $OutputFolder)
 EndFunc
@@ -186,8 +218,10 @@ Func _DebugMsg($msg="")
 EndFunc
 
 
-Func _ErrorMsg($msg="")
-
+Func _ErrorMsg($msg="",$critical=0)
+	_DebugMsg($msg)
+	MsgBox(48, _Text("error"), $msg)
+	If $critical=1 Then Exit
 EndFunc
 
 
@@ -227,15 +261,6 @@ Func _LanguageDetect()
 			Return "en"
 
     EndSelect
-EndFunc
-
-Func _DownloadDotNet4()
-	InetGet("http://citiesxlextractor.googlecode.com/files/dotNetFx40_Full_x86_x64.exe", "dotNet40_Full.exe", 1, 1)
-	SplashTextOn("Downloading", "Dot Net 4.0", 200, 50)
-	While @InetGetActive
-		Sleep(500)
-	Wend
-	SplashOff()
 EndFunc
 
 Func _Text($text,$section="core")

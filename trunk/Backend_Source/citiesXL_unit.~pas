@@ -178,13 +178,6 @@ begin
 		Begin
 		  Exit;
 		End;
-	  If FileExists(TrgtARCHIVEfileName) Then
-		Begin
-		  //  CONFIRMATION!
-		  If MessageDlg('Warning!'#13'The given file already exists!'+
-						 #13'Do you really want to overwrite it?',
-						 mtConfirmation, [mbYes, mbNo], 0) <> mrYes Then Exit;
-		End;
 	  CompressionMode := Get_ZLib_mode_Object_from_list;
 	  Success := CitiesXL_PAK_maker_bacter(SrcDir, TrgtARCHIVEfileName, CompressionMode, CallBack2,FilesNum);
 
