@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_icon=icon.ico
 #AutoIt3Wrapper_outfile=Compiled\Extractor.exe
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.22
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.23
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -77,9 +77,9 @@ While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
 	Case $GUI_EVENT_CLOSE
-		Exit
+		_ExitAttempt()
 	Case $MenuExit
-		Exit
+		_ExitAttempt()
 
 	Case $Tab1
 		RegWrite("HKCU\Software\CitiesXL Extractor", "ActiveTab", "REG_SZ", GUICtrlRead($Tab1))
@@ -221,7 +221,7 @@ EndFunc
 Func _ErrorMsg($msg="",$critical=0)
 	_DebugMsg($msg)
 	MsgBox(48, _Text("error"), $msg)
-	If $critical=1 Then Exit
+	If $critical=1 Then _ExitAttempt()
 EndFunc
 
 
@@ -270,5 +270,10 @@ Func _Text($text,$section="core")
 	Return $var
 EndFunc
 
+Func _ExitAttempt()
+	_DebugMsg("Exiting")
+	ProcessClose("citiesXL_project.exe")
+	Exit
+EndFunc
 
 
