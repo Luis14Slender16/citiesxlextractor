@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_icon=icon.ico
 #AutoIt3Wrapper_outfile=Compiled\Extractor.exe
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.23
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.29
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -16,6 +16,22 @@
 #Include <File.au3>
 
 Global $language = _LanguageDetect()
+Global $debug = 0
+
+; Loop through command args for switches
+For $a = 1 to ($CmdLine[0])
+	Select
+	Case StringLower($CmdLine[$a]) = "/debug"
+		$debug = 1
+	Case StringInStr($CmdLine[$a], "/c")
+		$b = $a + 1
+		_Compile($CmdLine[$b]&".patch", $CmdLine[$b])
+		Exit
+	Case Else
+		; unknown var
+	EndSelect
+Next
+
 _DebugMsg("Language Set to "&$language)
 
 $AppName = _Text("appname")
@@ -57,6 +73,7 @@ $inputPakFolder = GUICtrlCreateInput($PakFolder, 39, 161, 440, 21)
 $btnInstallFolderSelect = GUICtrlCreateButton(_Text("btnselect"), 489, 161, 75, 17, $WS_GROUP)
 $btnExtractAll = GUICtrlCreateButton(_Text("extractall"), 267, 191, 75, 25, $WS_GROUP)
 $tabCompile = GUICtrlCreateTabItem(_Text("tabPackage"))
+GUICtrlSetState(-1,$GUI_SHOW)
 GUICtrlCreateLabel(_Text("outputfile"), 34, 86, 135, 17)
 $inputPackageOutput = GUICtrlCreateInput("", 39, 109, 440, 21)
 $btnPackageOutputSelect = GUICtrlCreateButton(_Text("btnselect"), 489, 111, 75, 17, $WS_GROUP)
@@ -104,7 +121,7 @@ While 1
 		_outputfolderselect()
 
 	Case $btnSinglePakSelect
-		$SinglePak = FileOpenDialog(_Text("SelectSinglePak"), $PakFolder & "\", "Archives (*.pak;*.patch)", 1)
+		$SinglePak = FileOpenDialog(_Text("SelectSinglePak"), $PakFolder & "\", "Archives (*.pak;*.patch)|Levels (*.lvl)|All (*.*)", 1)
 		GUICtrlSetData($inputSinglePak, $SinglePak)
 
 	Case $btnPackageOutputSelect
