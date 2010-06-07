@@ -800,7 +800,7 @@ Begin {Function CitiesXL_PAK_eXtract_bacter}
       Exit;
     End;
   TSL := TStringList.Create;
-  If Addr(CallBack) <> Nil Then Callback(0,'generating the file list...');
+  //If Addr(CallBack) <> Nil Then Callback(0,'generating the file list...');
   If Not CitiesXL_PAKfile_2_TSL(PAKfileName,TSL) Then
     Begin
       TSL.Free;
