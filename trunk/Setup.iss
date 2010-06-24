@@ -20,6 +20,7 @@ DisableReadyPage=true
 VersionInfoVersion=2.1
 VersionInfoProductName=Cities XL Extractor
 VersionInfoProductVersion=2.0
+AppID=CitiesXLModTools
 [Dirs]
 Name: {app}\languages
 [Registry]
